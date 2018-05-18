@@ -61,7 +61,7 @@ function buyProduct() {
     }
   ])
     .then(function (answer) {
-      connection.query("SELECT stock_quantity FROM products WHERE ?",
+      connection.query("SELECT * FROM products WHERE ?",
         {
           item_id: answer.id
         },
@@ -79,10 +79,7 @@ function buyProduct() {
               ],
               function (err) {
                 if (err) throw err;
-                var resJSON = JSON.stringify(res,null,2);
-                var resParsed = JSON.parse(resJSON);
-                var itemPrice = resParsed[0].price;
-                console.log('Your oder has been placed! Your total is $' + itemPrice * answer.quantity);
+                console.log('Your oder has been placed! Your total is $' + res[0].price * answer.quantity);
               }
             )
           }
